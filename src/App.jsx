@@ -5,7 +5,6 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
 
-  // making time readable 
 function App() {
   const TodoKey = "index"
   const [EditId, setEditId] = useState(null)
@@ -16,7 +15,8 @@ function App() {
     return JSON.parse(rawTasks);
   })
   
-
+  
+  // making time readable 
   function formatDate(date) {
   return date.toLocaleString('en-GB', {
     day: '2-digit',
@@ -32,7 +32,6 @@ function App() {
   localStorage.setItem(TodoKey, JSON.stringify(Tasks));
 }, [Tasks]);
 
-    // localStorage.setItem( TodoKey, JSON.stringify(Tasks))
 
   const handleChange = (e) => {
     setTask(e.target.value)
@@ -97,30 +96,36 @@ function App() {
 
 
   return (
-    <>
-      <div className=" flex flex-col relative container">
+    
+      <div className=" flex flex-col relative min-h-screen container">
+        <div className='flex-1'>       
         <Navbar />
         {/* Write and add tasks SEction */}
-        <div className="flex justify-center">
-            {/* Input field */}
-            <form onSubmit={handleAdd} className="flex  items-center justify-center gap-3 p-4 -md mx-1 sm:mx-0 sm:w-[70vw]">
-            <input onChange={handleChange}
-              type="text" value={Task}
-              placeholder="Enter your task"
-              className="flex-1 px-4 py-2 rounded-full border border-gray-500 focus:outline-none focus:ring-2 focus:ring-black"
-            />
+       <div className="flex justify-center px-2 sm:px-0">
+  <form 
+    onSubmit={handleAdd} 
+    className="flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-[70vw] p-4"
+  >
+    <input 
+      type="text" 
+      value={Task}
+      onChange={handleChange}
+      placeholder="Enter your task"
+      className="flex-1 min-w-0 px-4 py-2 rounded-full border border-gray-500 focus:outline-none focus:ring-2 focus:ring-black transition"
+    />
 
-            {/* Add button */}
-            <button className="px-5 py-2 bg-white text-black border-2 border-black font-semibold rounded-full hover:bg-black hover:text-white transition">
-              Add
-            </button>
-            </form>
-          
-        </div>
+    <button 
+      type="submit"
+      className="px-4 sm:px-5 py-2 bg-white text-black border-2 border-black font-semibold rounded-full hover:bg-black hover:text-white transition"
+    >
+      {EditId !== null ? "Update" : "Add"}
+    </button>
+  </form>
+</div>
 
 
         {/* All Tasks will be added here */}
-        <div className='flex flex-col items-center m-4 sm:m-8 p-4 border-2 border-black bg-slate-100 rounded-xl hover:shadow-lg'>
+        <div className='flex flex-col items-center m-4 sm:m-8 p-4 border-2 border-gray-200 bg-slate-100 rounded-xl hover:shadow-lg'>
           {Tasks.length==0 && <div className='text-gray-300 font-serif text-center'> No Tasks to Display </div>}
           
           {Tasks.map((e, index) => (
@@ -135,13 +140,11 @@ function App() {
               />
               <span className= "text-white text-lg "></span>
             </label>
-             
            <span className = {`${e.completed ? "line-through text-gray-400" : ""} max-w-full break-words`}>
             {e.text}
            </span>
            
             <span className="ml-2 px-2 py-0.5 rounded-lg bg-gray-200 text-gray-500 text-xs italic font-serif"> Added on {formatDate(new Date(e.createdAt))}</span>
-              
 
 
             <div className='flex gap-2  justify-center sm:justify-end w-full  flex-wrap'>
@@ -157,10 +160,13 @@ function App() {
           </div>
            ))}
         </div>
-      
+        </div>
+
+      <div className="mt-auto">
+        <Footer />
+      </div>
       </div>
     
-    </>
   )
 }
 

@@ -5,8 +5,7 @@ const Navbar = () => {
     <div className='nav'>
   <nav className='flex justify-between items-center bg-black text-white p-5 rounded-full m-4 '>
     <div ><LuListTodo size={45} /></div>
-    <div className='font-bebas text-5xl font-extrabold'> DailyDash</div>
-    <div className='text-2xl cursor-pointer hover:font-medium font-'>Home</div>
+    <div className='font-bebas text-3xl font-extrabold'> Ho Gaya</div>
   </nav>
   </div>
   )
